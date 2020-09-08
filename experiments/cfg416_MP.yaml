@@ -22,7 +22,6 @@ DATASET:
   SCALE_FACTOR: 0.25
   TEST_SET: dev
   TRAIN_SET: train
-  IMAGE_DIR: '../gdrive/My Drive/SPEED_MP_RoI/images/train'
 MODEL:
   INIT_WEIGHTS: true
   NAME: HRNet416_MP

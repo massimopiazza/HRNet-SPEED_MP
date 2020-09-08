@@ -22,7 +22,6 @@ DATASET:
   SCALE_FACTOR: 0.25
   TEST_SET: test
   TRAIN_SET: train
-  IMAGE_DIR: '../images/test/'
 MODEL:
   INIT_WEIGHTS: true
   NAME: HRNet416_MP
