@@ -118,8 +118,6 @@ class JointsDataset(Dataset):
         imgnum = db_rec['imgnum'] if 'imgnum' in db_rec else ''
 
         print(image_file)
-        print(filename)
-        print(imgnum)
 
         if self.data_format == 'zip':
             from utils import zipreader
