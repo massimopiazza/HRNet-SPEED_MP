@@ -40,6 +40,8 @@ class PEdataset_test(JointsDataset):
 
         self.db = self._get_db()
 
+        self.image_dir = cfg.IMAGE_DIR
+
         logger.info('=> load {} samples'.format(len(self.db)))
 
     def _get_db(self):
@@ -83,7 +85,8 @@ class PEdataset_test(JointsDataset):
             #     joints_3d_vis[:, 0] = joints_vis[:]
             #     joints_3d_vis[:, 1] = joints_vis[:]
 
-            image_dir = '../images/test/'
+            # image_dir = '../images/test/'
+            image_dir = self.image_dir
 
             gt_db.append(
                 {
