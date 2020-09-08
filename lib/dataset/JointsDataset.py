@@ -240,7 +240,7 @@ class JointsDataset(Dataset):
         target_weight[:, 0] = joints_vis[:, 0]
 
         assert self.target_type == 'gaussian', \
-            'Only support gaussian map now!'
+            'Only supports gaussian map now!'
 
         if self.target_type == 'gaussian':
             target = np.zeros((self.num_joints,
