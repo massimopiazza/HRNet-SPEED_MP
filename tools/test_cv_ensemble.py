@@ -81,43 +81,58 @@ def main():
     torch.backends.cudnn.deterministic = cfg.CUDNN.DETERMINISTIC
     torch.backends.cudnn.enabled = cfg.CUDNN.ENABLED
 
-    model1 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
-        cfg, is_train=False
-    )
-    model1.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f1/final_state.pth'), strict=False)
-    model1 = torch.nn.DataParallel(model1, device_ids=cfg.GPUS).cuda()
-    
-    model2 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
-        cfg, is_train=False
-    )
-    model2.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f2/final_state.pth'), strict=False)
-    model2 = torch.nn.DataParallel(model2, device_ids=cfg.GPUS).cuda()
 
-    model3 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
+    ## MY TEST: MASSIMO PIAZZA
+    ####################################################################################################################
+    model = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
         cfg, is_train=False
     )
-    model3.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f3/final_state.pth'), strict=False)
-    model3 = torch.nn.DataParallel(model3, device_ids=cfg.GPUS).cuda()
+    model.load_state_dict(torch.load('output416_MP/PEdataset/HRNet416_MP/cfg416_MP/final_state.pth'), strict=False)
+    model = torch.nn.DataParallel(model1, device_ids=cfg.GPUS).cuda()
 
-    model4 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
-        cfg, is_train=False
-    )
-    model4.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f4/final_state.pth'), strict=False)
-    model4 = torch.nn.DataParallel(model4, device_ids=cfg.GPUS).cuda()
+    models = [model]
 
-    model5 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
-        cfg, is_train=False
-    )
-    model5.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f5/final_state.pth'), strict=False)
-    model5 = torch.nn.DataParallel(model5, device_ids=cfg.GPUS).cuda()
+    ####################################################################################################################
+    # model1 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
+    #     cfg, is_train=False
+    # )
+    # model1.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f1/final_state.pth'), strict=False)
+    # model1 = torch.nn.DataParallel(model1, device_ids=cfg.GPUS).cuda()
+    #
+    # model2 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
+    #     cfg, is_train=False
+    # )
+    # model2.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f2/final_state.pth'), strict=False)
+    # model2 = torch.nn.DataParallel(model2, device_ids=cfg.GPUS).cuda()
+    #
+    # model3 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
+    #     cfg, is_train=False
+    # )
+    # model3.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f3/final_state.pth'), strict=False)
+    # model3 = torch.nn.DataParallel(model3, device_ids=cfg.GPUS).cuda()
+    #
+    # model4 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
+    #     cfg, is_train=False
+    # )
+    # model4.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f4/final_state.pth'), strict=False)
+    # model4 = torch.nn.DataParallel(model4, device_ids=cfg.GPUS).cuda()
+    #
+    # model5 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
+    #     cfg, is_train=False
+    # )
+    # model5.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f5/final_state.pth'), strict=False)
+    # model5 = torch.nn.DataParallel(model5, device_ids=cfg.GPUS).cuda()
+    #
+    # model6 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
+    #     cfg, is_train=False
+    # )
+    # model6.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f6/final_state.pth'), strict=False)
+    # model6 = torch.nn.DataParallel(model6, device_ids=cfg.GPUS).cuda()
+    #
+    # models = [model1, model2, model3, model4, model5, model6]
+    ####################################################################################################################
 
-    model6 = eval('models.'+cfg.MODEL.NAME+'.get_pose_net')(
-        cfg, is_train=False
-    )
-    model6.load_state_dict(torch.load('output_768cv/PEdataset/my_hrnet768/cfg768f6/final_state.pth'), strict=False)
-    model6 = torch.nn.DataParallel(model6, device_ids=cfg.GPUS).cuda()
 
-    models = [model1, model2, model3, model4, model5, model6]
     # define loss function (criterion) and optimizer
     criterion = JointsMSELoss(
         use_target_weight=cfg.LOSS.USE_TARGET_WEIGHT
