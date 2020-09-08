@@ -60,6 +60,7 @@ _C.DATASET.TEST_SET = 'dev'
 _C.DATASET.DATA_FORMAT = 'jpg'
 _C.DATASET.HYBRID_JOINTS_TYPE = ''
 _C.DATASET.SELECT_DATA = False
+_C.DATASET.IMAGE_DIR: '../images/train'
 
 # training data augmentation
 _C.DATASET.FLIP = True
