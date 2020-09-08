@@ -24,7 +24,6 @@ logger = logging.getLogger(__name__)
 
 class PEdataset(JointsDataset):
     def __init__(self, cfg, root, image_set, is_train, transform=None):
-        self.image_dir = cfg.IMAGE_DIR
         super().__init__(cfg, root, image_set, is_train, transform)
 
         self.num_joints = 11
@@ -40,6 +39,8 @@ class PEdataset(JointsDataset):
         self.pixel_std = 200
 
         self.db = self._get_db()
+
+        self.image_dir = cfg.IMAGE_DIR
 
         logger.info('=> load {} samples'.format(len(self.db)))
 
