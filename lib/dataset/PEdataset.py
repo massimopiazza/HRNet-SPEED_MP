@@ -21,7 +21,7 @@ from dataset.JointsDataset import JointsDataset
 
 logger = logging.getLogger(__name__)
 
-img_dir = '/content/gdrive/My Drive/SPEED_MP/images/train'
+img_dir = '/content/gdrive/My Drive/SPEED_MP_HRNet/images/train'
 
 class PEdataset(JointsDataset):
     def __init__(self, cfg, root, image_set, is_train, transform=None):
