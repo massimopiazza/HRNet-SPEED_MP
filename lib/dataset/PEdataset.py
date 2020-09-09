@@ -21,7 +21,7 @@ from dataset.JointsDataset import JointsDataset
 
 logger = logging.getLogger(__name__)
 
-img_dir = '/content/gdrive/My Drive/SPEED_MP_HRNet/train'
+img_dir = '/content/gdrive/My Drive/SPEED_MP_RoI/train'
 
 class PEdataset(JointsDataset):
     def __init__(self, cfg, root, image_set, is_train, transform=None):
@@ -34,8 +34,8 @@ class PEdataset(JointsDataset):
         self.upper_body_ids = None
         self.lower_body_ids = None
 
-        self.image_width = 1920
-        self.image_height = 1200
+        self.image_width = 416
+        self.image_height = 416
         self.aspect_ratio = self.image_width * 1.0 / self.image_height
         self.pixel_std = 200
 
