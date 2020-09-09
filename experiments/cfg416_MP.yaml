@@ -26,7 +26,7 @@ MODEL:
   INIT_WEIGHTS: true
   NAME: HRNet416_MP
   NUM_JOINTS: 11
-  PRETRAINED: 'checkpoint.pth'
+  PRETRAINED: 'model_best.pth'
   TARGET_TYPE: gaussian
   IMAGE_SIZE:
   - 416
