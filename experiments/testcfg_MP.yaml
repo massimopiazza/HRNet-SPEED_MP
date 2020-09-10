@@ -8,7 +8,7 @@ GPUS: (0,)
 OUTPUT_DIR: 'output416_MP'
 LOG_DIR: 'log'
 WORKERS: 0
-PRINT_FREQ: 200
+PRINT_FREQ: 80
 
 DATASET:
   COLOR_RGB: true
@@ -108,7 +108,7 @@ TRAIN:
   NESTEROV: false
 TEST:
   BATCH_SIZE_PER_GPU: 4
-  MODEL_FILE: ''
+  MODEL_FILE: '../model_best.pth'
   FLIP_TEST: false
   POST_PROCESS: true
   SHIFT_HEATMAP: true
