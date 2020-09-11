@@ -17,12 +17,12 @@ DATASET:
   FLIP: false
   NUM_JOINTS_HALF_BODY: 8
   PROB_HALF_BODY: -1.0
-  ROOT: 'data/PE/'
+  ROOT: 'inference'
   ROT_FACTOR: 30
   SCALE_FACTOR: 0.25
   TEST_SET: test
   TRAIN_SET: train
-  IMAGE_DIR: 'inference'
+  IMAGE_DIR: '/content/gdrive/My Drive/SPEED_MP_HRNet/test'
 MODEL:
   INIT_WEIGHTS: true
   NAME: HRNet416_MP
