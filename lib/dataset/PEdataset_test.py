@@ -21,7 +21,6 @@ from dataset.JointsDataset import JointsDataset
 
 logger = logging.getLogger(__name__)
 
-img_dir = '/content/gdrive/My Drive/SPEED_MP_HRNet/test'
 
 class PEdataset_test(JointsDataset):
     def __init__(self, cfg, root, image_set, is_train, transform=None):
@@ -38,6 +37,8 @@ class PEdataset_test(JointsDataset):
         self.image_height = 1200
         self.aspect_ratio = self.image_width * 1.0 / self.image_height
         self.pixel_std = 200
+
+        self.image_dir = cfg.DATASET.IMAGE_DIR
 
         self.db = self._get_db()
 
@@ -84,12 +85,10 @@ class PEdataset_test(JointsDataset):
             #     joints_3d_vis[:, 0] = joints_vis[:]
             #     joints_3d_vis[:, 1] = joints_vis[:]
 
-            # image_dir = '../images/test/'
-            image_dir = img_dir
 
             gt_db.append(
                 {
-                    'image': os.path.join(image_dir, image_name),
+                    'image': os.path.join(self.image_dir, image_name),
                     'center': c,
                     'scale': s,
                     'joints_3d': joints_3d,
