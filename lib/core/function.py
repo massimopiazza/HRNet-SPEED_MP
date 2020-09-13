@@ -418,7 +418,6 @@ from matplotlib import pyplot as plt
 
 def inference(config, val_loader, val_dataset, model, criterion, output_dir,
              tb_log_dir, writer_dict=None):
-    batch_time = AverageMeter()
 
     # switch to evaluate mode
     model.eval()
@@ -461,7 +460,7 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
             num_images = input.size(0)
 
             # measure elapsed time
-            batch_time.update(time.time() - end)
+            batch_time = (time.time() - end)
             end = time.time()
 
             c = meta['center'].numpy()
@@ -477,7 +476,7 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
             print(maxvals)
 
 
-            print('BATCH TIME: batch_time')
+            print('BATCH TIME: %.4f s' % batch_time)
 
                 # save_debug_images(config, input, meta, target,
                 #                   pred*(config.MODEL.IMAGE_SIZE[0]/float(config.MODEL.HEATMAP_SIZE[0])),
