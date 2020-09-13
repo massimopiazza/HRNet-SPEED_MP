@@ -26,7 +26,7 @@ import models
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Landmark Regression Network')
+    parser = argparse.ArgumentParser(description='Train keypoints network')
     # general
     parser.add_argument('--cfg',
                         help='experiment configure file name',
