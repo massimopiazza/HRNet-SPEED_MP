@@ -24,16 +24,14 @@ from utils.utils import create_logger
 import dataset
 import models
 
-
-
 ##
 
 
-logger, final_output_dir, tb_log_dir = create_logger(
+# logger, final_output_dir, tb_log_dir = create_logger(
     cfg, args.cfg, 'valid')
 
-logger.info(pprint.pformat(args))
-logger.info(cfg)
+# logger.info(pprint.pformat(args))
+# logger.info(cfg)
 
 # cudnn related setting
 cudnn.benchmark = cfg.CUDNN.BENCHMARK
