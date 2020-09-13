@@ -109,7 +109,7 @@ TRAIN:
   NESTEROV: false
 TEST:
   BATCH_SIZE_PER_GPU: 4
-  MODEL_FILE: 'model_best.pth'
+  MODEL_FILE: 'model_best_HRNet32.pth'
   FLIP_TEST: false
   POST_PROCESS: true
   SHIFT_HEATMAP: true
