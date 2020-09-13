@@ -432,7 +432,7 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
 
     with torch.no_grad():
         end = time.time()
-        for i, (input, _, _, _) in enumerate(val_loader):
+        for i, (input, _, _, meta) in enumerate(val_loader):
 
             # input_img_arr = np.array(input.tolist()).squeeze().astype(np.uint8)
             # input_img_arr = input_img_arr.reshape(input_img_arr.shape[1], input_img_arr.shape[2], input_img_arr.shape[0])
@@ -464,8 +464,8 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
             batch_time.update(time.time() - end)
             end = time.time()
 
-
-
+            c = meta['center'].numpy()
+            s = meta['scale'].numpy()
             preds, maxvals = get_final_preds(
                 config, heatmaps.clone().cpu().numpy(), c, s)
 
