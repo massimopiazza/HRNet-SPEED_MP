@@ -25,7 +25,7 @@ import _init_paths
 from config import cfg
 from config import update_config
 from core.loss import JointsMSELoss
-from core.function import validate
+from core.function import validate, inference
 from utils.utils import create_logger
 
 import dataset
@@ -39,6 +39,11 @@ def parse_args():
                         help='experiment configure file name',
                         required=True,
                         type=str)
+
+    parser.add_argument('--inferenceMode',
+                        help='This mode is suitable for embedding HRNet in a pipeline',
+                        default=False,
+                        type=bool)
 
     parser.add_argument('opts',
                         help="Modify config options using the command-line",
@@ -121,9 +126,13 @@ def main():
         pin_memory=True
     )
 
-    # evaluate on validation set
-    validate(cfg, valid_loader, valid_dataset, model, criterion,
-             final_output_dir, tb_log_dir)
+    if args.inferenceMode:
+        inference(cfg, valid_loader, valid_dataset, model, criterion,
+                 final_output_dir, tb_log_dir)
+    else:
+        # evaluate on validation set
+        validate(cfg, valid_loader, valid_dataset, model, criterion,
+                 final_output_dir, tb_log_dir)
 
 
 if __name__ == '__main__':
