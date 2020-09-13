@@ -410,6 +410,12 @@ def validate_cv(config, val_loader, val_dataset, models, criterion, output_dir,
 # ---------------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------
 
+import PIL
+from matplotlib import cm
+import IPython.display as display
+from matplotlib import pyplot as plt
+
+
 def inference(config, val_loader, val_dataset, model, criterion, output_dir,
              tb_log_dir, writer_dict=None):
     batch_time = AverageMeter()
@@ -431,13 +437,11 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
         end = time.time()
         for i, (input, _, _, meta) in enumerate(val_loader):
 
-            print('INPUT:')
-            print(np.array(input.tolist()).shape)
+            input_img_arr = np.array(input.tolist()).squeeze().astype(np.uint8)
+            input_img_arr = input_img_arr.reshape(input_img_arr.shape[1], input_img_arr.shape[2], input_img_arr.shape[0])
+            input_img = PIL.Image.fromarray(input_img_arr)
+            input_img.save('input0.jpg')
 
-            import PIL
-            from matplotlib import cm
-            import IPython.display as display
-            from matplotlib import pyplot as plt
 
             # for landmark_idx in np.arange(0, 11):
             #     heatmap_norm = np.array(target.tolist()).squeeze()[landmark_idx, :, :]
@@ -452,17 +456,26 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
             print('META:')
             print(meta)
 
-            # compute output
+            # HEATMAP PREDICTION
             outputs = model(input)
             if isinstance(outputs, list):
-                output = outputs[-1]
+                heatmap = outputs[-1]
             else:
-                output = outputs
+                heatmap = outputs
 
+            # PLOT HEATMAPS FOR EACH LANDMARK
+            for landmark_idx in np.arange(0, 11):
+                heatmap_norm = np.array(heatmap.tolist()).squeeze()[landmark_idx, :, :]
+                img_heatmap = PIL.Image.fromarray(
+                    np.uint8(cm.gist_earth(heatmap_norm) * 255)
+                ).convert('RGB')
+                # display.display(img_heatmap)
+                img_heatmap.save('heatmap%i.jpg' % landmark_idx)
 
 
 
             num_images = input.size(0)
+
 
             # measure elapsed time
             batch_time.update(time.time() - end)
@@ -473,7 +486,7 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
             score = meta['score'].numpy()
 
             preds, maxvals = get_final_preds(
-                config, output.clone().cpu().numpy(), c, s)
+                config, heatmap.clone().cpu().numpy(), c, s)
 
             all_preds[idx:idx + num_images, :, 0:2] = preds[:, :, 0:2]
             all_preds[idx:idx + num_images, :, 2:3] = maxvals
@@ -485,6 +498,13 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
             image_path.extend(meta['image'])
 
             idx += num_images
+
+            print('PREDS:')
+            print(preds)
+
+            print('MAX VALS:')
+            print(maxvals)
+
 
             if i % 5 == 0:
                 msg = 'Test: [{0}/{1}]\t' \
@@ -498,7 +518,7 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
                 )
                 # save_debug_images(config, input, meta, target,
                 #                   pred*(config.MODEL.IMAGE_SIZE[0]/float(config.MODEL.HEATMAP_SIZE[0])),
-                #                   output, prefix)
+                #                   heatmap, prefix)
 
         name_values, perf_indicator = val_dataset.evaluate(
             config, all_preds, output_dir, all_boxes, image_path,
