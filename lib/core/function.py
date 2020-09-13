@@ -429,75 +429,46 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
         dtype=np.float32
     )
     all_boxes = np.zeros((num_samples, 6))
-    image_path = []
-    filenames = []
-    imgnums = []
-    idx = 0
+
     with torch.no_grad():
         end = time.time()
-        for i, (input, _, _, meta) in enumerate(val_loader):
+        for i, (input, _, _, _) in enumerate(val_loader):
 
-            input_img_arr = np.array(input.tolist()).squeeze().astype(np.uint8)
-            input_img_arr = input_img_arr.reshape(input_img_arr.shape[1], input_img_arr.shape[2], input_img_arr.shape[0])
-            input_img = PIL.Image.fromarray(input_img_arr)
-            input_img.save('input0.jpg')
+            # input_img_arr = np.array(input.tolist()).squeeze().astype(np.uint8)
+            # input_img_arr = input_img_arr.reshape(input_img_arr.shape[1], input_img_arr.shape[2], input_img_arr.shape[0])
+            # input_img = PIL.Image.fromarray(input_img_arr)
+            # input_img.save('input0.jpg')
 
-
-            # for landmark_idx in np.arange(0, 11):
-            #     heatmap_norm = np.array(target.tolist()).squeeze()[landmark_idx, :, :]
-            #     img_heatmap = PIL.Image.fromarray(
-            #         np.uint8(cm.gist_earth(heatmap_norm) * 255)
-            #     ).convert('RGB')
-            #     # display.display(img_heatmap)
-            #     # ax = plt.gca()
-            #     # ax.imshow(img_heatmap)
-            #     img_heatmap.save('heatmaps/heatmap%i.jpg' % landmark_idx)
-
-            print('META:')
-            print(meta)
 
             # HEATMAP PREDICTION
             outputs = model(input)
             if isinstance(outputs, list):
-                heatmap = outputs[-1]
+                heatmaps = outputs[-1]
             else:
-                heatmap = outputs
+                heatmaps = outputs
 
             # PLOT HEATMAPS FOR EACH LANDMARK
             for landmark_idx in np.arange(0, 11):
-                heatmap_norm = np.array(heatmap.tolist()).squeeze()[landmark_idx, :, :]
+                heatmap_norm = np.array(heatmaps.tolist()).squeeze()[landmark_idx, :, :]
                 img_heatmap = PIL.Image.fromarray(
                     np.uint8(cm.gist_earth(heatmap_norm) * 255)
                 ).convert('RGB')
                 # display.display(img_heatmap)
-                img_heatmap.save('heatmap%i.jpg' % landmark_idx)
+                img_heatmap.save('heatmaps%i.jpg' % landmark_idx)
 
 
 
             num_images = input.size(0)
 
-
             # measure elapsed time
             batch_time.update(time.time() - end)
             end = time.time()
 
-            c = meta['center'].numpy()
-            s = meta['scale'].numpy()
-            score = meta['score'].numpy()
+
 
             preds, maxvals = get_final_preds(
-                config, heatmap.clone().cpu().numpy(), c, s)
+                config, heatmaps.clone().cpu().numpy(), c, s)
 
-            all_preds[idx:idx + num_images, :, 0:2] = preds[:, :, 0:2]
-            all_preds[idx:idx + num_images, :, 2:3] = maxvals
-            # double check this all_boxes parts
-            all_boxes[idx:idx + num_images, 0:2] = c[:, 0:2]
-            all_boxes[idx:idx + num_images, 2:4] = s[:, 0:2]
-            all_boxes[idx:idx + num_images, 4] = np.prod(s*200, 1)
-            all_boxes[idx:idx + num_images, 5] = score
-            image_path.extend(meta['image'])
-
-            idx += num_images
 
             print('PREDS:')
             print(preds)
@@ -506,42 +477,11 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
             print(maxvals)
 
 
-            if i % 5 == 0:
-                msg = 'Test: [{0}/{1}]\t' \
-                      'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t' \
-                      .format(
-                          i, len(val_loader), batch_time=batch_time)
-                logger.info(msg)
+            print('BATCH TIME: batch_time')
 
-                prefix = '{}_{}'.format(
-                    os.path.join(output_dir, 'val'), i
-                )
                 # save_debug_images(config, input, meta, target,
                 #                   pred*(config.MODEL.IMAGE_SIZE[0]/float(config.MODEL.HEATMAP_SIZE[0])),
-                #                   heatmap, prefix)
-
-        name_values, perf_indicator = val_dataset.evaluate(
-            config, all_preds, output_dir, all_boxes, image_path,
-            filenames, imgnums
-        )
-
-        print('NAME VALUES:')
-        print(name_values)
-
-        print('PERF INDICATOR:')
-        print(perf_indicator)
+                #                   heatmaps, prefix)
 
 
-
-
-        model_name = config.MODEL.NAME
-        if isinstance(name_values, list):
-            for name_value in name_values:
-                _print_name_value(name_value, model_name)
-        else:
-            _print_name_value(name_values, model_name)
-
-
-
-
-    return perf_indicator
+    return preds, maxvals, heatmaps
