@@ -56,6 +56,9 @@ class JointsDataset(Dataset):
         self.transform = transform
         self.db = []
 
+        self.is_inference_mode = cfg.TEST.INFERENCE_MODE
+
+
     def _get_db(self):
         raise NotImplementedError
 
@@ -181,10 +184,15 @@ class JointsDataset(Dataset):
             if joints_vis[i, 0] > 0.0:
                 joints[i, 0:2] = affine_transform(joints[i, 0:2], trans)
 
-        target, target_weight = self.generate_target(joints, joints_vis)
+        if is_inference_mode:
+            target = None
+            target_weight = None
+        else:
+            target, target_weight = self.generate_target(joints, joints_vis)
 
-        target = torch.from_numpy(target)
-        target_weight = torch.from_numpy(target_weight)
+            target = torch.from_numpy(target)
+            target_weight = torch.from_numpy(target_weight)
+
 
         meta = {
             'image': image_file,
