@@ -182,8 +182,8 @@ class JointsDataset(Dataset):
 
 
         if self.is_inference_mode:  # Ground Truths of landmark positions NOT available
-            target = None
-            target_weight = None
+            target = []
+            target_weight = []
 
         else:
             for i in range(self.num_joints):
