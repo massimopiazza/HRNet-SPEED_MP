@@ -410,11 +410,6 @@ def validate_cv(config, val_loader, val_dataset, models, criterion, output_dir,
 # ---------------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------------
 
-import PIL
-from matplotlib import cm
-import IPython.display as display
-from matplotlib import pyplot as plt
-
 
 def inference(config, val_loader, val_dataset, model, output_dir):
 
