@@ -433,6 +433,7 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
         end = time.time()
         for i, (input, _, _, meta) in enumerate(val_loader):
 
+
             # input_img_arr = np.array(input.tolist()).squeeze().astype(np.uint8)
             # input_img_arr = input_img_arr.reshape(input_img_arr.shape[1], input_img_arr.shape[2], input_img_arr.shape[0])
             # input_img = PIL.Image.fromarray(input_img_arr)
@@ -440,7 +441,7 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
 
 
             # HEATMAP PREDICTION
-            outputs = model(input)
+            outputs = model(input).tolist()
             if isinstance(outputs, list):
                 heatmaps = outputs[-1]
             else:
@@ -470,17 +471,16 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
 
 
             print('PREDS:')
-            print(preds)
+            print(preds.squeeze())
 
             print('MAX VALS:')
-            print(maxvals)
+            print(maxvals.squeeze())
+
+            print(meta)
 
 
             print('BATCH TIME: %.4f s' % batch_time)
 
-                # save_debug_images(config, input, meta, target,
-                #                   pred*(config.MODEL.IMAGE_SIZE[0]/float(config.MODEL.HEATMAP_SIZE[0])),
-                #                   heatmaps, prefix)
 
 
-    return preds, maxvals, heatmaps
+    return preds.squeeze(), maxvals.squeeze(), heatmaps.squeeze()
