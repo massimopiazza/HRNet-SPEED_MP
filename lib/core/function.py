@@ -460,7 +460,7 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             maxvals = maxvals.squeeze()
 
             output_dict[i] = {
-                'image': meta['image_file'],
+                'image': os.path.basename(meta['image']),
                 'landmarks': preds,
                 'probabilities': maxvals
             }
