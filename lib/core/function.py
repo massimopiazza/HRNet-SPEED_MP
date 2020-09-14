@@ -11,6 +11,7 @@ from __future__ import print_function
 import time
 import logging
 import os
+import json
 
 import numpy as np
 import torch
@@ -419,15 +420,10 @@ def inference(config, val_loader, val_dataset, model, output_dir):
     # switch to evaluate mode
     model.eval()
 
-    num_samples = len(val_dataset)
-    all_preds = np.zeros(
-        (num_samples, config.MODEL.NUM_JOINTS, 3),
-        dtype=np.float32
-    )
-    all_boxes = np.zeros((num_samples, 6))
-
     # initialize list of Inference Runtimes for each individual image [seconds]
     runtimes = []
+
+    output_dict = {}
 
     with torch.no_grad():
 
@@ -460,25 +456,38 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             runtimes = [*runtimes, img_time]
 
 
-            #################################################################
-            # STACK PREDICTIONS, PROBABILITIES, HEATMAPS
-            # for all images in the test set:
             preds = preds.squeeze()
             maxvals = maxvals.squeeze()
-            heatmaps = np.array(heatmaps_torch.tolist()).squeeze()
+
+            output_dict[i] = {
+                'image': image_file,
+                'landmarks': preds,
+                'probabilities': maxvals
+            }
 
 
-            # initialize dimensions of the arrays
-            if i == 0:
-                preds_set = np.zeros((num_img, *preds.shape), dtype=float32)
-                maxvals_set = np.zeros((num_img, *maxvals.shape), dtype=float32)
-                heatmaps_set = np.zeros((num_img, *heatmaps.shape), dtype=float32)
 
-            # looping over the 1st dimension for writing values
-            preds_set[i] = preds
-            maxvals_set[i] = maxvals
-            heatmaps_set[i] = heatmaps
-            #################################################################
+            # #################################################################
+            # # STACK PREDICTIONS, PROBABILITIES, HEATMAPS
+            # # for all images in the test set:
+            # preds = preds.squeeze()
+            # maxvals = maxvals.squeeze()
+            # heatmaps = np.array(heatmaps_torch.tolist()).squeeze()
+            #
+            # # initialize dimensions of the arrays
+            # if i == 0:
+            #     preds_set = np.zeros((num_img, *preds.shape), dtype=float32)
+            #     maxvals_set = np.zeros((num_img, *maxvals.shape), dtype=float32)
+            #     heatmaps_set = np.zeros((num_img, *heatmaps.shape), dtype=float32)
+            #
+            # # looping over the 1st dimension for writing values
+            # preds_set[i] = preds
+            # maxvals_set[i] = maxvals
+            # heatmaps_set[i] = heatmaps
+            # #################################################################
 
+    # Save output dictionary as JSON file
+    with open(os.path.join(output_dir,'HRNet32_inference.json'), 'w') as fp:
+        json.dump(output_dict, fp)
 
-    return preds_set, maxvals_set, heatmaps_set, runtimes
+    return runtimes

@@ -98,7 +98,7 @@ def save_batch_heatmaps(batch_image, batch_heatmaps, file_name,
                        (int(preds[i][j][0]), int(preds[i][j][1])),
                        1, [0, 0, 255], 1)
             heatmap = heatmaps[j, :, :]
-            colored_heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
+            colored_heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_PLASMA)
             masked_image = colored_heatmap*0.7 + resized_image*0.3
             cv2.circle(masked_image,
                        (int(preds[i][j][0]), int(preds[i][j][1])),

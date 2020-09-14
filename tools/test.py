@@ -135,19 +135,14 @@ def main():
         import IPython.display as display
         from matplotlib import pyplot as plt
 
-        preds_set, maxvals_set, heatmaps_set, runtimes =\
+        runtimes =\
             inference(cfg, valid_loader, valid_dataset, model, final_output_dir)
-
-        print('PREDS:')
-        print(preds_set.shape)
-
-        print('MAX VALS:')
-        print(maxvals_set.shape)
-
-        # print(meta)
 
         print('RUNTIMES:')
         print(runtimes)
+
+        print('AVG TIME:')
+        print(mean(runtimes))
 
         if cfg.DEBUG.SAVE_HEATMAPS_PRED:
             for k in np.arange(heatmaps_set.shape[0]):
