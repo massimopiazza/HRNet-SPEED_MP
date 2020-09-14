@@ -416,8 +416,7 @@ import IPython.display as display
 from matplotlib import pyplot as plt
 
 
-def inference(config, val_loader, val_dataset, model, criterion, output_dir,
-             tb_log_dir, writer_dict=None):
+def inference(config, val_loader, val_dataset, model, output_dir):
 
     # switch to evaluate mode
     model.eval()
@@ -429,9 +428,14 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
     )
     all_boxes = np.zeros((num_samples, 6))
 
+    # initialize list of Inference Runtimes for each individual image [seconds]
+    runtimes = []
+
     with torch.no_grad():
-        end = time.time()
+
         for i, (input, _, _, meta) in enumerate(val_loader):
+
+            t0 = time.time()
 
             # input_img_arr = np.array(input.tolist()).squeeze().astype(np.uint8)
             # input_img_arr = input_img_arr.reshape(input_img_arr.shape[1], input_img_arr.shape[2], input_img_arr.shape[0])
@@ -457,11 +461,11 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
 
 
 
-            num_images = input.size(0)
+            # measure elapsed time for processing a single image
+            img_time = (time.time() - t0)
+            runtimes = [*runtimes, img_time]
 
-            # measure elapsed time
-            batch_time = (time.time() - end)
-            end = time.time()
+
 
             c = meta['center'].numpy()
             s = meta['scale'].numpy()
@@ -482,4 +486,4 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
 
 
 
-    return preds.squeeze(), maxvals.squeeze(), heatmaps.squeeze()
+    return preds.squeeze(), maxvals.squeeze(), heatmaps.squeeze(), runtimes

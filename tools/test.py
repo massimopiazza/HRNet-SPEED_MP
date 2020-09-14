@@ -127,8 +127,7 @@ def main():
     )
 
     if cfg.TEST.INFERENCE_MODE:
-        inference(cfg, valid_loader, valid_dataset, model, criterion,
-                 final_output_dir, tb_log_dir)
+        inference(cfg, valid_loader, valid_dataset, model, final_output_dir)
     else:
         # evaluate on validation set
         validate(cfg, valid_loader, valid_dataset, model, criterion,
