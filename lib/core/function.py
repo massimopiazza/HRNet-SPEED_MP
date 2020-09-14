@@ -423,11 +423,13 @@ def inference(config, val_loader, val_dataset, model, output_dir):
     # initialize list of Inference Runtimes for each individual image [seconds]
     runtimes = []
 
-    output_dict = {}
+    output_dict = [None]*num_img
 
     with torch.no_grad():
 
         for i, (input, _, _, meta) in enumerate(val_loader):
+
+            print('Inference on: %i/%i images' % (i+1, num_img), end='\r')
 
             t0 = time.time()
 
