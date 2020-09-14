@@ -127,7 +127,20 @@ def main():
     )
 
     if cfg.TEST.INFERENCE_MODE:
-        inference(cfg, valid_loader, valid_dataset, model, final_output_dir)
+        preds_set, maxvals_set, heatmaps_set, runtimes =\
+            inference(cfg, valid_loader, valid_dataset, model, final_output_dir)
+
+        print('PREDS:')
+        print(preds_set.shape)
+
+        print('MAX VALS:')
+        print(maxvals_set.shape)
+
+        # print(meta)
+
+        print('RUNTIMES:')
+        print(runtimes)
+
     else:
         # evaluate on validation set
         validate(cfg, valid_loader, valid_dataset, model, criterion,

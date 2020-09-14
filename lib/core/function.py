@@ -418,6 +418,9 @@ from matplotlib import pyplot as plt
 
 def inference(config, val_loader, val_dataset, model, output_dir):
 
+    # total number of images on which we run inference
+    num_img = len(val_dataset)
+
     # switch to evaluate mode
     model.eval()
 
@@ -446,19 +449,15 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             # HEATMAP PREDICTION
             outputs = model(input)
             if isinstance(outputs, list):
-                heatmaps = outputs[-1]
+                heatmaps_torch = outputs[-1]
             else:
-                heatmaps = outputs
+                heatmaps_torch = outputs
 
-            # PLOT HEATMAPS FOR EACH LANDMARK
-            for landmark_idx in np.arange(0, 11):
-                heatmap_norm = np.array(heatmaps.tolist()).squeeze()[landmark_idx, :, :]
-                img_heatmap = PIL.Image.fromarray(
-                    np.uint8(cm.plasma(heatmap_norm) * 255)
-                ).convert('RGB')
-                # display.display(img_heatmap)
-                img_heatmap.save('heatmaps%i.jpg' % landmark_idx)
-
+            # obtain FINAL PREDICTIONS
+            c = meta['center'].numpy()
+            s = meta['scale'].numpy()
+            preds, maxvals = get_final_preds(
+                config, heatmaps_torch.clone().cpu().numpy(), c, s)
 
 
             # measure elapsed time for processing a single image
@@ -466,25 +465,38 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             runtimes = [*runtimes, img_time]
 
 
+            #################################################################
+            # STACK for all images in the set:
+            # predictions, probabilities, heatmaps_torch
 
-            c = meta['center'].numpy()
-            s = meta['scale'].numpy()
-            preds, maxvals = get_final_preds(
-                config, heatmaps.clone().cpu().numpy(), c, s)
-
-
-            print('PREDS:')
-            print(preds.squeeze())
-
-            print('MAX VALS:')
-            print(maxvals.squeeze())
-
-            print(meta)
+            preds = preds.squeeze()
+            maxvals = maxvals.squeeze()
+            heatmaps = np.array(heatmaps_torch.tolist()).squeeze()
 
 
-            print('BATCH TIME:')
-            print(runtimes)
+            # initialize dimensions of the arrays
+            if i == 0:
+                preds_set = np.zeros((num_img, *preds.shape))
+                maxvals_set = np.zeros((num_img, *maxvals.shape))
+                heatmaps_set = np.zeros((num_img, *heatmaps.shape))
+
+            # looping over the 1st dimension for writing values
+            preds_set[i] = preds
+            maxvals_set[i] = maxvals
+            heatmaps_set[i] = heatmaps
+
+            #################################################################
+
+            # PLOT HEATMAPS FOR EACH LANDMARK
+            for landmark_idx in np.arange(0, 11):
+                heatmap_norm = heatmaps[landmark_idx, :, :]
+                img_heatmap = PIL.Image.fromarray(
+                    np.uint8(cm.plasma(heatmap_norm) * 255)
+                ).convert('RGB')
+                # display.display(img_heatmap)
+                img_heatmap.save('heatmaps_torch%i.jpg' % landmark_idx)
 
 
 
-    return preds.squeeze(), maxvals.squeeze(), heatmaps.squeeze(), runtimes
+
+    return preds_set, maxvals_set, heatmaps_set, runtimes
