@@ -466,9 +466,8 @@ def inference(config, val_loader, val_dataset, model, output_dir):
 
 
             #################################################################
-            # STACK for all images in the set:
-            # predictions, probabilities, heatmaps_torch
-
+            # STACK PREDICTIONS, PROBABILITIES, HEATMAPS
+            # for all images in the test set:
             preds = preds.squeeze()
             maxvals = maxvals.squeeze()
             heatmaps = np.array(heatmaps_torch.tolist()).squeeze()
@@ -484,19 +483,7 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             preds_set[i] = preds
             maxvals_set[i] = maxvals
             heatmaps_set[i] = heatmaps
-
             #################################################################
-
-            # PLOT HEATMAPS FOR EACH LANDMARK
-            for landmark_idx in np.arange(0, 11):
-                heatmap_norm = heatmaps[landmark_idx, :, :]
-                img_heatmap = PIL.Image.fromarray(
-                    np.uint8(cm.plasma(heatmap_norm) * 255)
-                ).convert('RGB')
-                # display.display(img_heatmap)
-                img_heatmap.save('heatmaps_torch%i.jpg' % landmark_idx)
-
-
 
 
     return preds_set, maxvals_set, heatmaps_set, runtimes
