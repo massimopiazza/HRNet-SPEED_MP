@@ -482,7 +482,8 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             print(meta)
 
 
-            print('BATCH TIME: %.4f s' % runtimes)
+            print('BATCH TIME:')
+            print(runtimes)
 
 
 
