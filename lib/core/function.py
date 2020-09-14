@@ -460,7 +460,7 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             maxvals = maxvals.squeeze()
 
             output_dict[i] = {
-                'image': image_file,
+                'image': meta['image_file'],
                 'landmarks': preds,
                 'probabilities': maxvals
             }
@@ -487,7 +487,7 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             # #################################################################
 
     # Save output dictionary as JSON file
-    with open(os.path.join(output_dir,'HRNet32_inference.json'), 'w') as fp:
+    with open('HRNet32_inference.json', 'w') as fp:
         json.dump(output_dict, fp)
 
     return runtimes
