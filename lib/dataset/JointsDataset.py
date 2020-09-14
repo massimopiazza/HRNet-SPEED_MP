@@ -182,8 +182,8 @@ class JointsDataset(Dataset):
 
 
         if self.is_inference_mode:  # Ground Truths of landmark positions NOT available
-            target = []
-            target_weight = []
+            target = torch.from_numpy(np.array([]))
+            target_weight = torch.from_numpy(np.array([]))
 
         else:
             for i in range(self.num_joints):
