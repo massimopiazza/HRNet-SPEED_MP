@@ -144,17 +144,17 @@ def main():
         print('AVG TIME:')
         print(np.mean(np.array(runtimes)))
 
-        if cfg.DEBUG.SAVE_HEATMAPS_PRED:
-            for k in np.arange(heatmaps_set.shape[0]):
-                heatmaps = heatmaps_set[k]
-                # PLOT HEATMAPS FOR EACH LANDMARK
-                for landmark_idx in np.arange(0, 11):
-                    heatmap_norm = heatmaps[landmark_idx, :, :]
-                    img_heatmap = PIL.Image.fromarray(
-                        np.uint8(cm.plasma(heatmap_norm) * 255)
-                    ).convert('RGB')
-                    # display.display(img_heatmap)
-                    img_heatmap.save('heatmaps%i.jpg' % landmark_idx)
+        # if cfg.DEBUG.SAVE_HEATMAPS_PRED:
+        #     for k in np.arange(heatmaps_set.shape[0]):
+        #         heatmaps = heatmaps_set[k]
+        #         # PLOT HEATMAPS FOR EACH LANDMARK
+        #         for landmark_idx in np.arange(0, 11):
+        #             heatmap_norm = heatmaps[landmark_idx, :, :]
+        #             img_heatmap = PIL.Image.fromarray(
+        #                 np.uint8(cm.plasma(heatmap_norm) * 255)
+        #             ).convert('RGB')
+        #             # display.display(img_heatmap)
+        #             img_heatmap.save('heatmaps%i.jpg' % landmark_idx)
 
     else:
         # evaluate on validation set
