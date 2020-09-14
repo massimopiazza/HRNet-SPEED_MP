@@ -38,7 +38,9 @@ class PEdataset_test(JointsDataset):
         self.aspect_ratio = self.image_width * 1.0 / self.image_height
         self.pixel_std = 200
 
+
         self.image_dir = cfg.DATASET.IMAGE_DIR
+        self.is_inference_mode = cfg.DATASET.IMAGE_DIR
 
         self.db = self._get_db()
 
@@ -62,7 +64,7 @@ class PEdataset_test(JointsDataset):
             # import ipdb;ipdb.set_trace();
             c,s=self._box2cs(box)
 
-            if cfg.TEST.INFERENCE_MODE:  # Ground Truths of landmark positions NOT available
+            if self.is_inference_mode:  # Ground Truths of landmark positions NOT available
                 joints_3d = None
                 joints_3d_vis = None
             else:
