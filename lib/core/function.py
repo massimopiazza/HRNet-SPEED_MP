@@ -456,8 +456,8 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             runtimes = [*runtimes, img_time]
 
 
-            preds = preds.squeeze()
-            maxvals = maxvals.squeeze()
+            preds = preds.squeeze().tolist()
+            maxvals = maxvals.squeeze().tolist()
 
             output_dict[i] = {
                 'image': os.path.basename(meta['image'][0]),
