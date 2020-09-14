@@ -64,12 +64,10 @@ class PEdataset_test(JointsDataset):
             # import ipdb;ipdb.set_trace();
             c,s=self._box2cs(box)
 
-            if self.is_inference_mode:  # Ground Truths of landmark positions NOT available
-                joints_3d = np.array([])
-                joints_3d_vis = np.array([])
-            else:
-                joints_3d = np.zeros((self.num_joints, 3), dtype=np.float)
-                joints_3d_vis = np.zeros((self.num_joints,  3), dtype=np.float)
+            joints_3d = np.zeros((self.num_joints, 3), dtype=np.float)
+            joints_3d_vis = np.zeros((self.num_joints, 3), dtype=np.float)
+
+            if not self.is_inference_mode:  # Ground Truths of landmark positions NOT available
                 for idx, rec in enumerate(a['joints']):
                     joints_3d[idx, 0:2] = rec[:]
                 for idx, rec in enumerate(a['visible']):
