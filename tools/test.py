@@ -126,7 +126,7 @@ def main():
         pin_memory=True
     )
 
-    if cfg.inferenceMode:
+    if cfg.TEST.INFERENCE_MODE:
         inference(cfg, valid_loader, valid_dataset, model, criterion,
                  final_output_dir, tb_log_dir)
     else:

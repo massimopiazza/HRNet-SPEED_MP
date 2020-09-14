@@ -40,7 +40,7 @@ class PEdataset_test(JointsDataset):
 
 
         self.image_dir = cfg.DATASET.IMAGE_DIR
-        self.is_inference_mode = cfg.DATASET.IMAGE_DIR
+        self.is_inference_mode = cfg.TEST.INFERENCE_MODE
 
         self.db = self._get_db()
 
