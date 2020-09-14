@@ -128,6 +128,9 @@ def main():
 
 
     if cfg.TEST.INFERENCE_MODE:  # i.e. no GT labels provided for landmarks (only for BBs)
+
+        import numpy as np
+
         preds_set, maxvals_set, heatmaps_set, runtimes =\
             inference(cfg, valid_loader, valid_dataset, model, final_output_dir)
 
