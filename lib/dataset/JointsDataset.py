@@ -184,7 +184,7 @@ class JointsDataset(Dataset):
             if joints_vis[i, 0] > 0.0:
                 joints[i, 0:2] = affine_transform(joints[i, 0:2], trans)
 
-        if is_inference_mode:
+        if self.is_inference_mode:
             target = None
             target_weight = None
         else:
