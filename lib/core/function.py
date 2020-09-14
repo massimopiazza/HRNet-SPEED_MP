@@ -470,9 +470,9 @@ def inference(config, val_loader, val_dataset, model, output_dir):
 
             # initialize dimensions of the arrays
             if i == 0:
-                preds_set = np.zeros((num_img, *preds.shape))
-                maxvals_set = np.zeros((num_img, *maxvals.shape))
-                heatmaps_set = np.zeros((num_img, *heatmaps.shape))
+                preds_set = np.zeros((num_img, *preds.shape), dtype=float32)
+                maxvals_set = np.zeros((num_img, *maxvals.shape), dtype=float32)
+                heatmaps_set = np.zeros((num_img, *heatmaps.shape), dtype=float32)
 
             # looping over the 1st dimension for writing values
             preds_set[i] = preds
