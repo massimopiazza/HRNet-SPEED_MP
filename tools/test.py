@@ -142,7 +142,7 @@ def main():
         print(runtimes)
 
         print('AVG TIME:')
-        print(mean(runtimes))
+        print(np.mean(np.array(runtimes)))
 
         if cfg.DEBUG.SAVE_HEATMAPS_PRED:
             for k in np.arange(heatmaps_set.shape[0]):
