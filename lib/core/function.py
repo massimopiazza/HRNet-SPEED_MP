@@ -429,7 +429,8 @@ def inference(config, val_loader, val_dataset, model, output_dir):
 
         for i, (input, _, _, meta) in enumerate(val_loader):
 
-            print('Inference on: %i/%i images' % (i+1, num_img), end='\r')
+            if (i+1)%10 == 0:
+                print('Inference on: %i/%i images' % (i+1, num_img))#, end='\r')
 
             t0 = time.time()
 
