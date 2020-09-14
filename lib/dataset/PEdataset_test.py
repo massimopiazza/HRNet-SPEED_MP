@@ -62,28 +62,32 @@ class PEdataset_test(JointsDataset):
             # import ipdb;ipdb.set_trace();
             c,s=self._box2cs(box)
 
-            joints_3d = np.zeros((self.num_joints, 3), dtype=np.float)
-            joints_3d_vis = np.zeros((self.num_joints,  3), dtype=np.float)
-            for idx, rec in enumerate(a['joints']):
-                joints_3d[idx, 0:2] = rec[:]
-            for idx, rec in enumerate(a['visible']):
-                joints_3d_vis[idx, 0:2] = rec
+            if cfg.TEST.INFERENCE_MODE:  # Ground Truths of landmark positions NOT available
+                joints_3d = None
+                joints_3d_vis = None
+            else:
+                joints_3d = np.zeros((self.num_joints, 3), dtype=np.float)
+                joints_3d_vis = np.zeros((self.num_joints,  3), dtype=np.float)
+                for idx, rec in enumerate(a['joints']):
+                    joints_3d[idx, 0:2] = rec[:]
+                for idx, rec in enumerate(a['visible']):
+                    joints_3d_vis[idx, 0:2] = rec
 
-            #
-            #
-            # joints_3d = np.zeros((self.num_joints, 3), dtype=np.float)
-            # joints_3d_vis = np.zeros((self.num_joints,  3), dtype=np.float)
-            # if self.image_set != 'test':
-            #     joints = np.array(a['joints'])
-            #     joints[:, 0:2] = joints[:, 0:2] - 1
-            #     joints_vis = np.array(a['joints_vis'])
-            #     assert len(joints) == self.num_joints, \
-            #         'joint num diff: {} vs {}'.format(len(joints),
-            #                                           self.num_joints)
-            #
-            #     joints_3d[:, 0:2] = joints[:, 0:2]
-            #     joints_3d_vis[:, 0] = joints_vis[:]
-            #     joints_3d_vis[:, 1] = joints_vis[:]
+                #
+                #
+                # joints_3d = np.zeros((self.num_joints, 3), dtype=np.float)
+                # joints_3d_vis = np.zeros((self.num_joints,  3), dtype=np.float)
+                # if self.image_set != 'test':
+                #     joints = np.array(a['joints'])
+                #     joints[:, 0:2] = joints[:, 0:2] - 1
+                #     joints_vis = np.array(a['joints_vis'])
+                #     assert len(joints) == self.num_joints, \
+                #         'joint num diff: {} vs {}'.format(len(joints),
+                #                                           self.num_joints)
+                #
+                #     joints_3d[:, 0:2] = joints[:, 0:2]
+                #     joints_3d_vis[:, 0] = joints_vis[:]
+                #     joints_3d_vis[:, 1] = joints_vis[:]
 
 
             gt_db.append(

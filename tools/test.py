@@ -40,10 +40,10 @@ def parse_args():
                         required=True,
                         type=str)
 
-    parser.add_argument('--inferenceMode',
-                        help='This mode is suitable for embedding HRNet in a pipeline',
-                        default=False,
-                        type=bool)
+    # parser.add_argument('--inferenceMode',
+    #                     help='This mode is suitable for embedding HRNet in a pipeline',
+    #                     default=False,
+    #                     type=bool)
 
     parser.add_argument('opts',
                         help="Modify config options using the command-line",
@@ -126,7 +126,7 @@ def main():
         pin_memory=True
     )
 
-    if args.inferenceMode:
+    if cfg.inferenceMode:
         inference(cfg, valid_loader, valid_dataset, model, criterion,
                  final_output_dir, tb_log_dir)
     else:

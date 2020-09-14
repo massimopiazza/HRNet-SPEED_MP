@@ -433,7 +433,6 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
         end = time.time()
         for i, (input, _, _, meta) in enumerate(val_loader):
 
-
             # input_img_arr = np.array(input.tolist()).squeeze().astype(np.uint8)
             # input_img_arr = input_img_arr.reshape(input_img_arr.shape[1], input_img_arr.shape[2], input_img_arr.shape[0])
             # input_img = PIL.Image.fromarray(input_img_arr)
@@ -441,7 +440,7 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
 
 
             # HEATMAP PREDICTION
-            outputs = model(input).tolist()
+            outputs = model(input)
             if isinstance(outputs, list):
                 heatmaps = outputs[-1]
             else:
@@ -451,7 +450,7 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
             for landmark_idx in np.arange(0, 11):
                 heatmap_norm = np.array(heatmaps.tolist()).squeeze()[landmark_idx, :, :]
                 img_heatmap = PIL.Image.fromarray(
-                    np.uint8(cm.plasma(heatmap_norm) * 255)
+                    np.uint8(cm.gist_earth(heatmap_norm) * 255)
                 ).convert('RGB')
                 # display.display(img_heatmap)
                 img_heatmap.save('heatmaps%i.jpg' % landmark_idx)
@@ -483,4 +482,5 @@ def inference(config, val_loader, val_dataset, model, criterion, output_dir,
 
 
 
-    return preds.squeeze(), maxvals.squeeze(), heatmaps.squeeze()
+
+    return preds.squeeze(), maxvals.squeeze(), heatmaps
