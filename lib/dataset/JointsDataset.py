@@ -182,13 +182,14 @@ class JointsDataset(Dataset):
 
 
         if self.is_inference_mode:  # Ground Truths of landmark positions NOT available
+            target = None
+            target_weight = None
+
+        else:
             for i in range(self.num_joints):
                 if joints_vis[i, 0] > 0.0:
                     joints[i, 0:2] = affine_transform(joints[i, 0:2], trans)
 
-            target = None
-            target_weight = None
-        else:
             target, target_weight = self.generate_target(joints, joints_vis)
 
             target = torch.from_numpy(target)
