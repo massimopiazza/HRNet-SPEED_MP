@@ -47,10 +47,18 @@ class PEdataset_test(JointsDataset):
         logger.info('=> load {} samples'.format(len(self.db)))
 
     def _get_db(self):
-        # create train/val split
+
+        # labels @ self.root/test.json
+        # (self.root corresponds to DATASET->ROOT in the config file)
         file_name = os.path.join(
             self.root, self.image_set+'.json'
         )
+        # labels @ self.root
+        # i.e. in the configuration we provide the path to the specific
+        # file name, not necessarily called 'test.json'
+        if not os.path.exists(file_name):
+            file_name = self.root
+
         with open(file_name) as anno_file:
             anno = json.load(anno_file)
 
