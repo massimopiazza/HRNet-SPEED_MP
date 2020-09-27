@@ -456,7 +456,7 @@ def inference(config, val_loader, val_dataset, model, output_dir):
 
             # measure elapsed time for processing a single image
             img_time = (time.time() - t0)
-            runtimes = [*runtimes, img_time]
+            runtimes.append(img_time)
 
 
             preds = preds.squeeze().tolist()
@@ -465,7 +465,8 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             output_dict[i] = {
                 'image': os.path.basename(meta['image'][0]),
                 'landmarks': preds,
-                'probabilities': maxvals
+                'probabilities': maxvals,
+                'runtimes' : runtimes
             }
 
 
