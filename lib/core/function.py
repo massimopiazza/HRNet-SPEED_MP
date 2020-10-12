@@ -466,7 +466,7 @@ def inference(config, val_loader, val_dataset, model, output_dir):
                 'image': os.path.basename(meta['image'][0]),
                 'landmarks': preds,
                 'probabilities': maxvals,
-                'runtimes' : runtimes
+                'runtime' : img_time
             }
 
 
