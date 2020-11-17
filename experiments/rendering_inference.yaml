@@ -17,13 +17,13 @@ DATASET:
   FLIP: false
   NUM_JOINTS_HALF_BODY: 8
   PROB_HALF_BODY: -1.0
-  ROOT: '../../sharedData/rendezvous_labels.json'  # directory containing the file 'test.json' (which provides labels)
+  ROOT: '../../sharedData/yolov5_inference.json'  # directory containing the file 'test.json' (which provides labels)
                                                    # or path to generic filename with BBs
   ROT_FACTOR: 30
   SCALE_FACTOR: 0.25
   TEST_SET: test
   TRAIN_SET: train
-  IMAGE_DIR: '/content/gdrive/My Drive/movie'
+  IMAGE_DIR: '/content/gdrive/My Drive/tango_rendering'
 MODEL:
   INIT_WEIGHTS: true
   NAME: HRNet416_MP
