@@ -23,7 +23,7 @@ DATASET:
   SCALE_FACTOR: 0.25
   TEST_SET: test
   TRAIN_SET: train
-  IMAGE_DIR: '/content/gdrive/My Drive/earth_bg'
+  IMAGE_DIR: '/content/gdrive/My Drive/movie'
 MODEL:
   INIT_WEIGHTS: true
   NAME: HRNet416_MP
