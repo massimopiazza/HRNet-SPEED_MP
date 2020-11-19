@@ -412,7 +412,7 @@ def validate_cv(config, val_loader, val_dataset, models, criterion, output_dir,
 # ---------------------------------------------------------------------------------------------------------
 
 
-def inference(config, val_loader, val_dataset, model, output_dir):
+def inference(config, val_loader, val_dataset, model, output_filename):
 
     # total number of images on which we run inference
     num_img = len(val_dataset)
@@ -491,7 +491,7 @@ def inference(config, val_loader, val_dataset, model, output_dir):
             # #################################################################
 
     # Save output dictionary as JSON file
-    with open('HRNet32_inference.json', 'w') as fp:
+    with open(output_filename + '.json', 'w') as fp:
         json.dump(output_dict, fp)
 
     return runtimes

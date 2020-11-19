@@ -135,8 +135,15 @@ def main():
         import IPython.display as display
         from matplotlib import pyplot as plt
 
+
+        if '_rendering' in cfg.DATASET.ROOT:
+            output_filename = 'HRNet32_inference_rendering'
+        else:
+            output_filename = 'HRNet32_inference'
+
+
         runtimes =\
-            inference(cfg, valid_loader, valid_dataset, model, final_output_dir)
+            inference(cfg, valid_loader, valid_dataset, model, output_filename)
 
         print('RUNTIMES:')
         print(runtimes)

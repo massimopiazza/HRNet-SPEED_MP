@@ -18,7 +18,7 @@ DATASET:
   NUM_JOINTS_HALF_BODY: 8
   PROB_HALF_BODY: -1.0
   ROOT: '../../sharedData/yolov5_inference_rendering.json'  # directory containing the file 'test.json' (which provides labels)
-                                                   # or path to generic filename with BBs
+                                                            # or path to generic filename with BBs
   ROT_FACTOR: 30
   SCALE_FACTOR: 0.25
   TEST_SET: test
