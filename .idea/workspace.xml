@@ -19,7 +19,41 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="466e2623-eee5-407a-9629-4cf28fb4cbb0" name="Default Changelist" comment="Update" />
+    <list default="true" id="466e2623-eee5-407a-9629-4cf28fb4cbb0" name="Default Changelist" comment="Update">
+      <change beforePath="$PROJECT_DIR$/.idea/HRNet-SPEED_MP.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/HRNet-SPEED_MP.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/PE/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/PE/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/PE/dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/PE/dev.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/PE/test.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/PE/test.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/PE/train.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/PE/train.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hrnet_architecture.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/hrnet_architecture.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inference/yolov5_inference.json" beforeDir="false" afterPath="$PROJECT_DIR$/inference/yolov5_inference.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/config/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/config/default.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/default.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/config/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/evaluate.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/evaluate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/function.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/function.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/inference.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/inference.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/loss.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/loss.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dataset/JointsDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/dataset/JointsDataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dataset/PEdataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/dataset/PEdataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dataset/PEdataset_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/dataset/PEdataset_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/dataset/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/dataset/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/HRNet416_MP.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/HRNet416_MP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/nms/cpu_nms.pyx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/nms/cpu_nms.pyx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/nms/gpu_nms.pyx" beforeDir="false" afterPath="$PROJECT_DIR$/lib/nms/gpu_nms.pyx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/transforms.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/transforms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/vis.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/vis.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils/zipreader.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils/zipreader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/tools/train.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,6 +62,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="ProjectId" id="1kvSJRyEIaNzVriIMv0V3yOSouP" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -35,29 +77,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
   <component name="RunManager">
-    <configuration name="3.8@console" type="PythonConfigurationType" factoryName="Python" singleton="false">
-      <module name="HRNet-SPEED_MP" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="/usr/local/bin/python3.8" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python" singleton="false">
       <module name="HRNet-SPEED_MP" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -131,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611076179965</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Update">
+      <created>1611138230297</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1611138230297</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
