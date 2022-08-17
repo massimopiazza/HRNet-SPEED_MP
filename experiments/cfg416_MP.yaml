@@ -11,7 +11,7 @@ WORKERS: 0
 PRINT_FREQ: 80
 
 DATASET:
-  COLOR_RGB: true
+  COLOR_RGB: false
   DATASET: PEdataset
   DATA_FORMAT: jpg
   FLIP: false

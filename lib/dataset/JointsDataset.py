@@ -122,11 +122,11 @@ class JointsDataset(Dataset):
         if self.data_format == 'zip':
             from utils import zipreader
             data_numpy = zipreader.imread(
-                image_file, cv2.IMREAD_COLOR | cv2.IMREAD_IGNORE_ORIENTATION
+                image_file, cv2.IMREAD_GRAYSCALE | cv2.IMREAD_IGNORE_ORIENTATION
             )
         else:
             data_numpy = cv2.imread(
-                image_file, cv2.IMREAD_COLOR | cv2.IMREAD_IGNORE_ORIENTATION
+                image_file, cv2.IMREAD_GRAYSCALE | cv2.IMREAD_IGNORE_ORIENTATION
             )
 
         if self.color_rgb:
